@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Fitness App Welcome</title>
+    <link href="..\Static\welcome.css" rel="stylesheet" type="text/css"/>
+  </head>
+  <h1 id="Welcome"> Welcome to the SJSU Fitness App </h1>
+  <body>
+    <form method ="post" action="/fitnessp1.html">
+      Enter Sex:<br>
+      <input type="text" name="user-sex" value="Gender Here">
+      <br>
+      Body Type:<br>
+      <input type="text" name="user-BodyType" value="Body Type Here">
+      <br>
+      What do you want to Do?:<br>
+       <select name="action">
+        <option value="Fitness-plan">See A Fitness Plan</option>
+        <option value="Meal_Plan">See A Meal Plan that you can use in the Commons</option>
+        <option value="Info">See info</option>
+        </select>
+      <input type="submit" value="Go!">
+    </form>
+  </body>
+</html>
