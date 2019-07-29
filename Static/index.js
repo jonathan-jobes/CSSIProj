@@ -11,4 +11,4 @@ function goToNewPage()
        if(url != 'none') {
            window.location = url;
        }
-   }
+}

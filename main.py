@@ -2,7 +2,9 @@ import webapp2
 import jinja2
 import os
 import datetime
-
+from models import NewUser
+from google.appengine.ext import ndb
+from webapp2_extras import sessions
 # This initializes the jinja2 Environment.
 # This will be the same in every app that uses the jinja2 templating library.
 the_jinja_env = jinja2.Environment(
@@ -17,11 +19,51 @@ class EnterInfoHandler(webapp2.RequestHandler):
         self.response.write(firstwelcome.render())
     def post(self):
         self.response.write("A post request to the EnterInfoHandler")
+class BaseHandler(webapp2.RequestHandler):              # taken from the webapp2 extrta session example
+    def dispatch(self):                                 # override dispatch
+        self.session_store = sessions.get_store(request=self.request)
 
-class SignInHandler(webapp2.RequestHandler):
+        try:
+            # Dispatch the request.
+            webapp2.RequestHandler.dispatch(self)       # dispatch the main handler
+        finally:
+            # Save all sessions.
+            self.session_store.save_sessions(self.response)
+
+    @webapp2.cached_property
+    def session(self):
+        # Returns a session using the default cookie key.
+        return self.session_store.get_session()
+
+class SignInHandler(BaseHandler):
     def get(self):
         welcome_template = the_jinja_env.get_template('Templates/signin.html')
         self.response.write(welcome_template.render())
+    def post(self):
+        Name = self.request.get('user-name')
+        Word = self.request.get('pass-word')
+        self.session['name']=Name
+        self.session['word']=Word
+        DataStore = NewUser.query().fetch()
+        for user in DataStore:
+            if user.Username == Name and user.Password == Word:
+                temp = the_jinja_env.get_template('Templates/afterSignIN.html')
+                self.response.write(temp.render())
+                break
+
+class FirstFitnessHandler(BaseHandler):
+    def get(self):
+        template1= the_jinja_env.get_template('Templates/fitnessp1.html')
+        self.response.write(template1.render())
+    def post(self):
+        template1= the_jinja_env.get_template('Templates/fitnessp1.html')
+        template2= the_jinja_env.get_template('Templates/signin.html')
+        name=self.session.get('name')
+        BodyType = NewUser.query().filter(NewUser.Username==name).get().Body
+        BodyDict = {
+        "body_type": BodyType
+        }
+        self.response.write(template1.render(BodyDict))
 class RegisterHandler(webapp2.RequestHandler):
     def get(self):
         welcome_template = the_jinja_env.get_template('Templates/welcome.html')
@@ -29,10 +71,14 @@ class RegisterHandler(webapp2.RequestHandler):
     def post(self):
         template1 = the_jinja_env.get_template('Templates/fitnessp1.html')
         bodyType = self.request.get('user-BodyType')
-        Body = {
+        Password = self.request.get('password')
+        Username = self.request.get('username')
+        User = NewUser(Username=Username, Password=Password, Body=bodyType)
+        User.put()
+        BodyDict = {
         "body_type": bodyType
         }
-        self.response.write(template1.render(Body))
+        self.response.write(template1.render(BodyDict))
 
 class SecondFitnessHandler(webapp2.RequestHandler):
     def get(self):
@@ -80,10 +126,16 @@ class MealOneHandler(webapp2.RequestHandler):
         "blank": month
         }
         self.response.write(template2.render(Date))
+config = {}
+config['webapp2_extras.sessions'] = {
+    'secret_key': 'my-super-secret-key',
+}
 app = webapp2.WSGIApplication([
     ('/', EnterInfoHandler),
     ('/welcome.html', RegisterHandler),
     ('/signin.html', SignInHandler),
+    #('/afterSignIN', OtherSignInHandler),
+    ('/fitnessp1.html', FirstFitnessHandler),
     ('/fitnessp2.html', SecondFitnessHandler),
     ('/mealp1.html', MealOneHandler),
-], debug=True)
+], config=config, debug=True)
