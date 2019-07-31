@@ -8,8 +8,9 @@
   <body>
     <h1>Your body type: {{body_type}}</h1>
     <h2>
-      Based on the body type you selected, here are some of the problem areas you might have:
-      <!-- enter problems here -->
+      Based on the body type you selected, here are some of your physical traits:
+      <br>
+      <img src={{information_body_type}} class="center">
     </h2>
     <h2>What would you like to improve on?</h2>
     <form class="options" action="fitnessp2.html" method="post">
@@ -17,7 +18,7 @@
       <select name="user_goal">
         <option value="Reduce fat">Reduce fat</option>
         <option value="Build muscle">Build Muscle</option>
-        <option value="Increase Strength">Increase Strength</option>
+        <option value="Increase strength">Increase Strength</option>
         <option value="Overall fitness">Overall fitness</option>
       </select>
       <input type="submit" value="Let's get started!">

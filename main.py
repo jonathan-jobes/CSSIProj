@@ -12,6 +12,25 @@ the_jinja_env = jinja2.Environment(
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
 
+def get_body_type_options(self, body_choice):
+    if body_choice == 'Ectomorph':
+        url = "../Static/images/typeA.png"
+    elif body_choice == 'Mesomorph':
+        url = '../Static/images/typeB.png'
+    else:
+        url = '../Static/images/typeC.png'
+    return url
+
+def get_regimen_options(self,fit_reg):
+    if fit_reg == 'Reduce fat':
+        return ['Aerobic', 56]
+    elif fit_reg == 'Build muscle':
+        return ['Strength',67]
+    elif fit_reg == 'Increase strength':
+        return ['../Static/images/typeB.png',10]
+    else:
+        return ['t', 12]
+
 # the handler section
 class EnterInfoHandler(webapp2.RequestHandler):
     def get(self):  # for a get request
@@ -61,7 +80,7 @@ class FirstFitnessHandler(BaseHandler):
         name=self.session.get('name')
         BodyType = NewUser.query().filter(NewUser.Username==name).get().Body
         BodyDict = {
-        "body_type": BodyType
+        "body_type": BodyType,
         }
         self.response.write(template1.render(BodyDict))
 class RegisterHandler(webapp2.RequestHandler):
@@ -73,10 +92,13 @@ class RegisterHandler(webapp2.RequestHandler):
         bodyType = self.request.get('user-BodyType')
         Password = self.request.get('password')
         Username = self.request.get('username')
+        body_choice = self.request.get('user-BodyType')
         User = NewUser(Username=Username, Password=Password, Body=bodyType)
         User.put()
+        bchoice = get_body_type_options(self, body_choice)
         BodyDict = {
-        "body_type": bodyType
+        "body_type": bodyType,
+        "information_body_type": bchoice
         }
         self.response.write(template1.render(BodyDict))
 
@@ -87,10 +109,21 @@ class SecondFitnessHandler(webapp2.RequestHandler):
     def post(self):
         template2 = the_jinja_env.get_template('Templates/fitnessp2.html')
         Goals=self.request.get('user_goal')
+        exercise_options=get_regimen_options(self, Goals)
         Exercise ={
-        "user_Goals": Goals
+        "user_Goals": Goals,
+        "examp": exercise_options[0],
+        "examp2": exercise_options[1]
         }
         self.response.write(template2.render(Exercise))
+class SummaryHandler(webapp2.RequestHandler):
+    def get(self):
+        template3 = the_jinja_env.get_template('Templates/mealp1.html')
+        self.response.write(template3.render())
+    def post(self):
+        template3 = the_jinja_env.get_template('Templates/summary.html')
+        self.response.write(template3.render())
+
 class MealOneHandler(webapp2.RequestHandler):
     def get(self):
         template2 = the_jinja_env.get_template('Templates/mealp1.html')
@@ -138,4 +171,5 @@ app = webapp2.WSGIApplication([
     ('/fitnessp1.html', FirstFitnessHandler),
     ('/fitnessp2.html', SecondFitnessHandler),
     ('/mealp1.html', MealOneHandler),
+    ('/summary.html',SummaryHandler)
 ], config=config, debug=True)
