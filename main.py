@@ -15,21 +15,24 @@ the_jinja_env = jinja2.Environment(
 def get_body_type_options(self, body_choice):
     if body_choice == 'Ectomorph':
         url = "../Static/images/typeA.png"
+        self.response.write("Characteristics Summary : Often considered the leaner body type, it is very difficult for Ectopmorphs to gain weight and muscle, and very easy for them to lose fat. This is due to their fast metabolism, and means they must have high calorie diets with short and intense workout sessions in order to gain muscle or maintain build. Types of Training Recommended: Strength training, light cardio. Meal Recommendations: Diet is the most important aspect of their routine in order to manipulate their weight. Ectopmorphs tolerate carbs very well, and thus should eat more carbs than anything else thoughout the day, especially during or after working out. Fruit and veggies are important carbs for every meal, whilst grain carbs every other. Healthy fats and protein are good, as well as protein shakes for weight gain.")
     elif body_choice == 'Mesomorph':
         url = '../Static/images/typeB.png'
+        #self.response.write("Characteristics Summary:")
     else:
         url = '../Static/images/typeC.png'
+        #self.response.write(
     return url
 
 def get_regimen_options(self,fit_reg):
     if fit_reg == 'Reduce fat':
-        return ['Aerobic', 56]
+        return ['Aerobic exercise: This consists of activities that cause you to breathe , faster. Some examples include walking or running on a treadmill, dancing, swimming or water aerobic exercises, playing tennis, bicycle riding (stationary or not),', 'Strength training:']
     elif fit_reg == 'Build muscle':
-        return ['Strength',67]
+        return ['Strength training,','Resistance training']
     elif fit_reg == 'Increase strength':
-        return ['../Static/images/typeB.png',10]
+        return ['Strength training,', 'Balance exercise']
     else:
-        return ['t', 12]
+        return ['Aerobic exercise: This consists of activities that cause you to breathe , faster. Some examples include walking or running on a treadmill, dancing, swimming or water aerobic exercises, playing tennis, bicycle riding (stationary or not),', 'Balance exercise']
 
 # the handler section
 class EnterInfoHandler(webapp2.RequestHandler):
