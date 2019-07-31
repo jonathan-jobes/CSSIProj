@@ -4,6 +4,16 @@
   <head>
     <meta charset="utf-8">
     <title>Meal</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+    $( function() {
+    $( "#datepicker" ).datepicker();
+    } );
+    </script>
   </head>
   <body>
     <h1>Your meal plan this week</h1>
@@ -11,7 +21,11 @@
       Everyone has to eat the 5 food groups in order to maintain a healthy balanced lifestyle. We can help you plan this on a weekly basis so you don't have to worry about your calorie intake or meals for the rest of the week. You can focus on your studies and still eat right!
     </p>
     <h2>Here's the dining hall meal schedule for the month of {{blank}}</h2>
-    <form class="options" action="mealp1.html" method="post">
+
+
+
+    <form class="options" action="/summary.html" method="post">
+      <p>Date: <input type="text" id="datepicker"></p>
         <label for="user_meals">Select your meals</label>
         <select name="user_meals">
           <option value="Sunday">Sunday</option>
@@ -26,5 +40,6 @@
         </p>
         <input type="submit" value="Let's look at your plan for the week!">
     </form>
+
   </body>
 </html>
