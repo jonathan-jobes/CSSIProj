@@ -10,17 +10,26 @@
 #form1{
   align-self: center;
   text-align: center;
+  font-size: 200%;
 
 }
 
 .center {
   display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 25%;
-  height: 45%;
+  text-align: left;
+  width: 80%;
+  height: 110%;
 }
 
+table{
+  border-spacing: 0px;
+}
+td{
+  padding: "0px";
+  padding-right: "0px";
+  padding-left: "0px";
+  border-spacing: "0px";
+}
 body{
   background-color: lemonchiffon;
 }
@@ -28,13 +37,36 @@ body{
 h1{
   align-self: center;
   text-align: center;
+  font-size: 300%;
 }
 
 h2{
-  h1{
     align-self: auto;
     text-align: left;
-  }
+}
+p{
+  font-weight: bold;
+  align-self: auto;
+  text-align: left;
+  font
+}
+#info{
+  align-self: baseline;
+  text-align: center;
+  font-family: Times;
+  font-size: 200%;
+}
+.workDays{
+  text-align: center;
+}
+.options{
+  text-align: center;
+}
+.from{
+  text-align: center;
+}
+.to{
+  text-align: center;
 }
 
 /*.demo-non-form {

@@ -26,11 +26,11 @@ def get_body_type_options(self, body_choice):
 
 def get_regimen_options(self,fit_reg):
     if fit_reg == 'Reduce fat':
-        return ['Aerobic exercise: This consists of activities that cause you to breathe , faster. Some examples include walking or running on a treadmill, dancing, swimming or water aerobic exercises, playing tennis, bicycle riding (stationary or not),', 'Strength training: This includes lifting weights, using resistance bands, using stairs, walking or running up hills, cycling (stationar or not), dancing, push ups, sit ups, or squats.']
+        return ['Aerobic exercise: This consists of activities that cause you to breathe , faster. Some examples include walking or running on a treadmill, dancing, swimming or water aerobic exercises, playing tennis, bicycle riding (stationary or not),', 'Strength training: This includes lifting weights, using resistance bands, using stairs, walking or running up hills, cycling (stationary or not), dancing, push ups, sit ups, or squats.']
     elif fit_reg == 'Build muscle':
-        return ['Strength training: This includes lifting weights, using resistance bands, using stairs, walking or running up hills, cycling (stationar or not), dancing, push ups, sit ups, or squats.',"Resistance training: This type of exercise is like weight training, but you don't need the weights. Examples include bicep curls, shoulder press, bench press, barbell squats, push ups, chin ups, sit ups, and body squats."]
+        return ['Strength training: This includes lifting weights, using resistance bands, using stairs, walking or running up hills, cycling (stationary or not), dancing, push ups, sit ups, or squats.',"Resistance training: This type of exercise is like weight training, but you don't need the weights. Examples include bicep curls, shoulder press, bench press, barbell squats, push ups, chin ups, sit ups, and body squats."]
     elif fit_reg == 'Increase strength':
-        return ['Strength training: This includes lifting weights, using resistance bands, using stairs, walking or running up hills, cycling (stationar or not), dancing, push ups, sit ups, or squats.', 'Balance exercise: This type of exercise strengthens the muscles we use to stay upright. Examples include tai chi, yoga, pilates, using a balance board, walking heel to toe.']
+        return ['Strength training: This includes lifting weights, using resistance bands, using stairs, walking or running up hills, cycling (stationary or not), dancing, push ups, sit ups, or squats.', 'Balance exercise: This type of exercise strengthens the muscles we use to stay upright. Examples include tai chi, yoga, pilates, using a balance board, walking heel to toe.']
     else:
         return ['Aerobic exercise: This consists of activities that cause you to breathe , faster. Some examples include walking or running on a treadmill, dancing, swimming or water aerobic exercises, playing tennis, bicycle riding (stationary or not).', "Resistance training: This type of exercise is like weight training, but you don't need the weights. Examples include bicep curls, shoulder press, bench press, barbell squats, push ups, chin ups, sit ups, and body squats."]
 
@@ -170,7 +170,7 @@ class MealOneHandler(webapp2.RequestHandler):
         Date ={
         "blank": month
         }
-        meals=self.request.get()
+        #meals=self.request.get()
 
         self.response.write(template2.render(Date))
 config = {}
