@@ -1,0 +1,35 @@
+h1{
+  align-self: center;
+  text-align: center;
+  font-size: 300%;
+  color: Black;
+  background-color: lemonchiffon;
+}
+
+#sum{
+  background-image: url("https://s3-media2.fl.yelpcdn.com/bphoto/Be2kbRHwp7a0Rz7VZ5IV5g/o.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+ h2{
+   align-self: center;
+   text-align: center;
+   font-size: 175%;
+   color: white;
+ }
+p{
+  align-self: center;
+  text-align: center;
+  font-size: 175%;
+  color: white;
+}
+a{
+  color: white;
+}
+.side{
+  font-weight: bolder;
+  align-self: center;
+  text-align: center;
+  font-size: 175%;
+  text-emphasis-color: white;
+}

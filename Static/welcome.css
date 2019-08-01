@@ -20,18 +20,6 @@
   height: 110%;
 }
 
-#meal{
-  background-image: url("https://images.typeform.com/images/sxsWmgf57pjv/image/default-firstframe.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-#sum{
-  background-image: url("https://s3-media2.fl.yelpcdn.com/bphoto/Be2kbRHwp7a0Rz7VZ5IV5g/o.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
 table{
   border-spacing: 0px;
 }
@@ -50,37 +38,63 @@ h1{
   align-self: center;
   text-align: center;
   font-size: 300%;
+  color: Black;
+  background-color: lemonchiffon;
 }
 
 h2{
     align-self: auto;
     text-align: left;
+    font-size: 175%;
+    color: Black;
 }
 p{
-  font-weight: bold;
+  font-weight: bolder;
   align-self: auto;
   text-align: left;
-  font
+  font-size: 175%;
+  color: Black;
 }
 #info{
   align-self: baseline;
   text-align: center;
   font-family: Times;
-  font-size: 200%;
+  font-size: 175%;
+  font-weight: bold;
 }
 .workDays{
   text-align: center;
+  color: black;
+  font-size: 150%;
+  font-weight: bold;
 }
 .options{
   text-align: center;
+  color: black;
+  font-size: 150%;
+  font-weight: bold;
 }
 .from{
   text-align: center;
+  font-size: 150%;
+  font-weight: bold;
 }
 .to{
   text-align: center;
+  font-size: 150%;
+  font-weight: bold;
 }
 
+a{
+  color: white;
+}
+.side{
+  font-weight: bold;
+  align-self: center;
+  text-align: center;
+  font-size: 100%;
+  text-emphasis-color: white;
+}
 /*.demo-non-form {
     color: initial;
     width: 100%;
