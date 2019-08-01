@@ -12,6 +12,36 @@ the_jinja_env = jinja2.Environment(
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
 
+def get_body_type_options(self, body_choice):
+    if body_choice == 'Ectomorph':
+        url = "../Static/images/typeA.png"
+        self.response.write("Characteristics Summary: Often considered the leaner body type, it is very difficult for Ectopmorphs to gain weight and muscle, and very easy for them to lose fat. This is due to their fast metabolism, and means they must have high calorie diets with short and intense workout sessions in order to gain muscle or maintain build. Types of Training Recommended: Strength training, light cardio exercise. Meal Recommendations: Diet is the most important aspect of their routine in order to manipulate their weight. Ectopmorphs tolerate carbs very well, and thus should eat more carbs than anything else thoughout the day, especially during or after working out. Fruit and vegetables are important carbs for every meal, whilst grain carbs every other. Healthy fats and protein are good, as well as protein shakes for weight gain.")
+    elif body_choice == 'Mesomorph':
+        url = '../Static/images/typeB.png'
+        self.response.write("Characteristics Summary: Typically an athletic body build, Mesomorphs can easily gain muscle and maintain a lower body fat. Type of Training Recommended: Strength (Weight specifically) training, Cardio exercise. Meal Recommendations: A well balanced diet is best, with slightly more carbs than proteins and fat (40/30/30) Lowfat proteins, complex carbs, and high fiber foods are best. Try avoiding high starches or surgary carbs unless it's in the morning or after exercise. Focus on light carbs and lean proteins,fruits, vegetables, and seeds. ")
+    else:
+        url = '../Static/images/typeC.png'
+        self.response.write("Characteristics Summary: Often more soft than the other builds, Endomorphs pack extra body mass and find it difficult to lose it. However, they have high functioning muscles and are often successful at sports like football. They store energy well, but have low carb tolerance. This body type must maintain an exercise routine and healthy diet in order to keep fit. Types of Training Recommended: Heavier Cardio exercise, light to moderate focused Weight training. Meal Recommendations: Light carbs and heavier fats and protein work best. Avoid any carbs that are not eaten during or after working out.")
+    return url
+
+def get_regimen_options(self,fit_reg):
+    if fit_reg == 'Reduce fat':
+        return ['Aerobic exercise: This consists of activities that cause you to breathe , faster. Some examples include walking or running on a treadmill, dancing, swimming or water aerobic exercises, playing tennis, bicycle riding (stationary or not),', 'Strength training: This includes lifting weights, using resistance bands, using stairs, walking or running up hills, cycling (stationar or not), dancing, push ups, sit ups, or squats.']
+    elif fit_reg == 'Build muscle':
+        return ['Strength training: This includes lifting weights, using resistance bands, using stairs, walking or running up hills, cycling (stationar or not), dancing, push ups, sit ups, or squats.',"Resistance training: This type of exercise is like weight training, but you don't need the weights. Examples include bicep curls, shoulder press, bench press, barbell squats, push ups, chin ups, sit ups, and body squats."]
+    elif fit_reg == 'Increase strength':
+        return ['Strength training: This includes lifting weights, using resistance bands, using stairs, walking or running up hills, cycling (stationar or not), dancing, push ups, sit ups, or squats.', 'Balance exercise: This type of exercise strengthens the muscles we use to stay upright. Examples include tai chi, yoga, pilates, using a balance board, walking heel to toe.']
+    else:
+        return ['Aerobic exercise: This consists of activities that cause you to breathe , faster. Some examples include walking or running on a treadmill, dancing, swimming or water aerobic exercises, playing tennis, bicycle riding (stationary or not).', "Resistance training: This type of exercise is like weight training, but you don't need the weights. Examples include bicep curls, shoulder press, bench press, barbell squats, push ups, chin ups, sit ups, and body squats."]
+
+def get_meal_options(self, mplan):
+    if mplan == 'Option One':
+        return []
+    elif mplan == 'Option Two':
+        return []
+    elif mplan == 'Option Three':
+        return []
+
 # the handler section
 class EnterInfoHandler(webapp2.RequestHandler):
     def get(self):  # for a get request
@@ -61,7 +91,7 @@ class FirstFitnessHandler(BaseHandler):
         name=self.session.get('name')
         BodyType = NewUser.query().filter(NewUser.Username==name).get().Body
         BodyDict = {
-        "body_type": BodyType
+        "body_type": BodyType,
         }
         self.response.write(template1.render(BodyDict))
 class RegisterHandler(webapp2.RequestHandler):
@@ -73,10 +103,13 @@ class RegisterHandler(webapp2.RequestHandler):
         bodyType = self.request.get('user-BodyType')
         Password = self.request.get('password')
         Username = self.request.get('username')
+        body_choice = self.request.get('user-BodyType')
         User = NewUser(Username=Username, Password=Password, Body=bodyType)
         User.put()
+        bchoice = get_body_type_options(self, body_choice)
         BodyDict = {
-        "body_type": bodyType
+        "body_type": bodyType,
+        "information_body_type": bchoice
         }
         self.response.write(template1.render(BodyDict))
 
@@ -87,10 +120,21 @@ class SecondFitnessHandler(webapp2.RequestHandler):
     def post(self):
         template2 = the_jinja_env.get_template('Templates/fitnessp2.html')
         Goals=self.request.get('user_goal')
+        exercise_options=get_regimen_options(self, Goals)
         Exercise ={
-        "user_Goals": Goals
+        "user_Goals": Goals,
+        "examp": exercise_options[0],
+        "examp2": exercise_options[1]
         }
         self.response.write(template2.render(Exercise))
+class SummaryHandler(webapp2.RequestHandler):
+    def get(self):
+        template3 = the_jinja_env.get_template('Templates/summary.html')
+        self.response.write(template3.render())
+    def post(self):
+        template3 = the_jinja_env.get_template('Templates/summary.html')
+        self.response.write(template3.render())
+
 class MealOneHandler(webapp2.RequestHandler):
     def get(self):
         template2 = the_jinja_env.get_template('Templates/mealp1.html')
@@ -125,6 +169,8 @@ class MealOneHandler(webapp2.RequestHandler):
         Date ={
         "blank": month
         }
+        #meals=self.request.get()
+
         self.response.write(template2.render(Date))
 config = {}
 config['webapp2_extras.sessions'] = {
@@ -137,4 +183,5 @@ app = webapp2.WSGIApplication([
     ('/fitnessp1.html', FirstFitnessHandler),
     ('/fitnessp2.html', SecondFitnessHandler),
     ('/mealp1.html', MealOneHandler),
+    ('/summary.html',SummaryHandler)
 ], config=config, debug=True)
