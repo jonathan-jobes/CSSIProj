@@ -48,25 +48,24 @@
     <p>
       Everyone has to eat the 5 food groups in order to maintain a healthy balanced lifestyle. We can help you plan this on a weekly basis so you don't have to worry about your calorie intake or meals for the rest of the week. You can focus on your studies and still eat right!
     </p>
-    <p>
-    Here's the dining hall meal schedule for the month of {{blank}}
-  </p>
+<div class="side">
     <h2>
        Click this <a href="https://www.dineoncampus.com/sjsu/whats-on-the-menu" target="_blank">link</a> to see the Commons Dining hall meal schedule for the month of {{blank}}!
        </h2>
+</div>
        <p>
          {{test}}
        </p>
 
 
     <form class="options" action="/summary.html" method="post">
-    <label for="from">From</label>
+    <label id= "fromlabel" for="from">From</label>
     <input type="text" id="from" name="start">
-    <label for="to">to</label>
+    <label id= "tolabel"for="to">to</label>
     <input type="text" id="to" name="end">
     <br>
     <br>
-        <label for="user_meals">Select your meals</label>
+        <label id= "selectlabel"for="user_meals">Select your meals</label>
         <select name="user_meals">
           <option value="Sunday">Sunday</option>
           <option value="Monday">Monday</option>

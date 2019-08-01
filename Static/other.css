@@ -33,4 +33,43 @@ p{
    font-size: 150%;
    font-weight: bold;
  }
- 
+#fromlabel{
+  text-align: center;
+  font-size: 100%;
+  font-weight: bold;
+  color: white;
+}
+#tolabel{
+  text-align: center;
+  font-size: 100%;
+  font-weight: bold;
+  color: white;
+}
+#selectlabel{
+  text-align: center;
+  font-size: 100%;
+  font-weight: bold;
+  color: white;
+}
+a{
+  color: green;
+}
+.side{
+  font-weight: bolder;
+  align-self: center;
+  text-align: center;
+  font-size: 110%;
+  text-emphasis-color: white;
+}
+ .from{
+   text-align: center;
+   font-size: 150%;
+   font-weight: bold;
+   color: white;
+ }
+ .to{
+   text-align: center;
+   font-size: 150%;
+   font-weight: bold;
+   color: white;
+ }
