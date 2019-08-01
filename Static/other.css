@@ -26,7 +26,13 @@ p{
    font-size: 175%;
    color: white;
  }
-
+h3{
+  font-weight: bold;
+  align-self: auto;
+  text-align: left;
+  font-size: 150%;
+  color: white;
+}
  .options{
    text-align: center;
    color: black;
