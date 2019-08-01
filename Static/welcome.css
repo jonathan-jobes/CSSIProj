@@ -1,17 +1,40 @@
+
 #Welcome{
   text-align:center;
+  font-family: Times;
+  font-size: 300%;
+  background-color: lemonchiffon;
+
 }
 
 #form1{
-  align-self:center;
+  align-self: center;
+  text-align: center;
+
 }
 
 .center {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 70%;
-  height: 70%;
+  width: 25%;
+  height: 45%;
+}
+
+body{
+  background-color: lemonchiffon;
+}
+
+h1{
+  align-self: center;
+  text-align: center;
+}
+
+h2{
+  h1{
+    align-self: auto;
+    text-align: left;
+  }
 }
 
 /*.demo-non-form {

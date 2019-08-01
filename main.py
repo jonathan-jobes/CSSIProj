@@ -28,11 +28,19 @@ def get_regimen_options(self,fit_reg):
     if fit_reg == 'Reduce fat':
         return ['Aerobic exercise: This consists of activities that cause you to breathe , faster. Some examples include walking or running on a treadmill, dancing, swimming or water aerobic exercises, playing tennis, bicycle riding (stationary or not),', 'Strength training: This includes lifting weights, using resistance bands, using stairs, walking or running up hills, cycling (stationar or not), dancing, push ups, sit ups, or squats.']
     elif fit_reg == 'Build muscle':
-        return ['Strength training,','Resistance training']
+        return ['Strength training: This includes lifting weights, using resistance bands, using stairs, walking or running up hills, cycling (stationar or not), dancing, push ups, sit ups, or squats.',"Resistance training: This type of exercise is like weight training, but you don't need the weights. Examples include bicep curls, shoulder press, bench press, barbell squats, push ups, chin ups, sit ups, and body squats."]
     elif fit_reg == 'Increase strength':
-        return ['Strength training,', 'Balance exercise']
+        return ['Strength training: This includes lifting weights, using resistance bands, using stairs, walking or running up hills, cycling (stationar or not), dancing, push ups, sit ups, or squats.', 'Balance exercise: This type of exercise strengthens the muscles we use to stay upright. Examples include tai chi, yoga, pilates, using a balance board, walking heel to toe.']
     else:
-        return ['Aerobic exercise: This consists of activities that cause you to breathe , faster. Some examples include walking or running on a treadmill, dancing, swimming or water aerobic exercises, playing tennis, bicycle riding (stationary or not),', 'Balance exercise']
+        return ['Aerobic exercise: This consists of activities that cause you to breathe , faster. Some examples include walking or running on a treadmill, dancing, swimming or water aerobic exercises, playing tennis, bicycle riding (stationary or not).', "Resistance training: This type of exercise is like weight training, but you don't need the weights. Examples include bicep curls, shoulder press, bench press, barbell squats, push ups, chin ups, sit ups, and body squats."]
+
+def get_meal_options(self, mplan):
+    if mplan == 'Option One':
+        return []
+    elif mplan == 'Option Two':
+        return []
+    elif mplan == 'Option Three':
+        return []
 
 # the handler section
 class EnterInfoHandler(webapp2.RequestHandler):
@@ -161,6 +169,8 @@ class MealOneHandler(webapp2.RequestHandler):
         Date ={
         "blank": month
         }
+        meals=self.request.get()
+        
         self.response.write(template2.render(Date))
 config = {}
 config['webapp2_extras.sessions'] = {
