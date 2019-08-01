@@ -26,11 +26,11 @@ def get_body_type_options(self, body_choice):
 
 def get_regimen_options(self,fit_reg):
     if fit_reg == 'Reduce fat':
-        return ['Aerobic exercise: This consists of activities that cause you to breathe , faster. Some examples include walking or running on a treadmill, dancing, swimming or water aerobic exercises, playing tennis, bicycle riding (stationary or not),', 'Strength training: This includes lifting weights, using resistance bands, using stairs, walking or running up hills, cycling (stationar or not), dancing, push ups, sit ups, or squats.']
+        return ['Aerobic exercise: This consists of activities that cause you to breathe , faster. Some examples include walking or running on a treadmill, dancing, swimming or water aerobic exercises, playing tennis, bicycle riding (stationary or not),', 'Strength training: This includes lifting weights, using resistance bands, using stairs, walking or running up hills, cycling (stationary or not), dancing, push ups, sit ups, or squats.']
     elif fit_reg == 'Build muscle':
-        return ['Strength training: This includes lifting weights, using resistance bands, using stairs, walking or running up hills, cycling (stationar or not), dancing, push ups, sit ups, or squats.',"Resistance training: This type of exercise is like weight training, but you don't need the weights. Examples include bicep curls, shoulder press, bench press, barbell squats, push ups, chin ups, sit ups, and body squats."]
+        return ['Strength training: This includes lifting weights, using resistance bands, using stairs, walking or running up hills, cycling (stationary or not), dancing, push ups, sit ups, or squats.',"Resistance training: This type of exercise is like weight training, but you don't need the weights. Examples include bicep curls, shoulder press, bench press, barbell squats, push ups, chin ups, sit ups, and body squats."]
     elif fit_reg == 'Increase strength':
-        return ['Strength training: This includes lifting weights, using resistance bands, using stairs, walking or running up hills, cycling (stationar or not), dancing, push ups, sit ups, or squats.', 'Balance exercise: This type of exercise strengthens the muscles we use to stay upright. Examples include tai chi, yoga, pilates, using a balance board, walking heel to toe.']
+        return ['Strength training: This includes lifting weights, using resistance bands, using stairs, walking or running up hills, cycling (stationary or not), dancing, push ups, sit ups, or squats.', 'Balance exercise: This type of exercise strengthens the muscles we use to stay upright. Examples include tai chi, yoga, pilates, using a balance board, walking heel to toe.']
     else:
         return ['Aerobic exercise: This consists of activities that cause you to breathe , faster. Some examples include walking or running on a treadmill, dancing, swimming or water aerobic exercises, playing tennis, bicycle riding (stationary or not).', "Resistance training: This type of exercise is like weight training, but you don't need the weights. Examples include bicep curls, shoulder press, bench press, barbell squats, push ups, chin ups, sit ups, and body squats."]
 
@@ -129,13 +129,18 @@ class SecondFitnessHandler(webapp2.RequestHandler):
         "examp2": exercise_options[1]
         }
         self.response.write(template2.render(Exercise))
-class SummaryHandler(webapp2.RequestHandler):
+class SummaryHandler(BaseHandler, webapp2.RequestHandler):
     def get(self):
         template3 = the_jinja_env.get_template('Templates/summary.html')
         self.response.write(template3.render())
     def post(self):
         template3 = the_jinja_env.get_template('Templates/summary.html')
-
+        mealstart = self.session.get('mealstartdate')
+        mealend = self.session.get('mealenddate')
+        Dates = {
+        "mealstart": mealstart,
+        "mealend": mealend
+        }
         self.response.write(template3.render())
 
 class MealOneHandler(BaseHandler, webapp2.RequestHandler):
@@ -144,8 +149,15 @@ class MealOneHandler(BaseHandler, webapp2.RequestHandler):
         self.response.write(template2.render())
     def post(self):
         template2 = the_jinja_env.get_template('Templates/mealp1.html')
-        mealstartdate = self.request.get('From')
-        mealenddate = self.request.get('To')
+        start = self.request.get('start')
+        test_dict= {
+        "test": start
+        }
+        self.session['mealstartdate'] = start
+        START = self.session.get('mealstartdate')
+
+        End = self.request.get('end')
+        self.session['mealenddate'] = End
         today= datetime.datetime.now()
         if today.month==1:
             month="January"
@@ -175,7 +187,7 @@ class MealOneHandler(BaseHandler, webapp2.RequestHandler):
         "blank": month
         }
 
-        self.response.write(template2.render(Start))
+        self.response.write(template2.render(test_dict))
 config = {}
 config['webapp2_extras.sessions'] = {
     'secret_key': 'my-super-secret-key',
