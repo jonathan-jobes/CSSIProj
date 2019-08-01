@@ -187,7 +187,8 @@ class MealOneHandler(BaseHandler, webapp2.RequestHandler):
         "blank": month
         }
 
-        self.response.write(template2.render(test_dict))
+        self.response.write(template2.render(Date
+        ))
 config = {}
 config['webapp2_extras.sessions'] = {
     'secret_key': 'my-super-secret-key',
