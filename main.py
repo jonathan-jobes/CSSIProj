@@ -134,7 +134,6 @@ app = webapp2.WSGIApplication([
     ('/', EnterInfoHandler),
     ('/welcome.html', RegisterHandler),
     ('/signin.html', SignInHandler),
-    #('/afterSignIN', OtherSignInHandler),
     ('/fitnessp1.html', FirstFitnessHandler),
     ('/fitnessp2.html', SecondFitnessHandler),
     ('/mealp1.html', MealOneHandler),
