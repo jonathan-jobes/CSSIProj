@@ -1,7 +1,36 @@
-#welcome{
+h1{
   text-align:center;
   font-family: Times;
   font-size: 300%;
-  background-color: lemonchiffon;
+  background-color: white;
   color: black;
 }
+
+#meal{
+  background-image: url("https://images.typeform.com/images/sxsWmgf57pjv/image/default-firstframe.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+p{
+  font-weight: bold;
+  align-self: auto;
+  text-align: left;
+  font-size: 175%;
+  color: white;
+}
+ h2{
+   font-weight: bold;
+   align-self: auto;
+   text-align: left;
+   font-size: 175%;
+   color: white;
+ }
+
+ .options{
+   text-align: center;
+   color: black;
+   font-size: 150%;
+   font-weight: bold;
+ }
+ 
