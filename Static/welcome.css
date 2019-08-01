@@ -4,14 +4,13 @@
   font-family: Times;
   font-size: 300%;
   background-color: lemonchiffon;
-
+  color: black;
 }
 
 #form1{
   align-self: center;
   text-align: center;
   font-size: 200%;
-
 }
 
 .center {
@@ -19,6 +18,18 @@
   text-align: left;
   width: 80%;
   height: 110%;
+}
+
+#meal{
+  background-image: url("https://images.typeform.com/images/sxsWmgf57pjv/image/default-firstframe.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#sum{
+  background-image: url("https://s3-media2.fl.yelpcdn.com/bphoto/Be2kbRHwp7a0Rz7VZ5IV5g/o.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 table{
@@ -31,7 +42,8 @@ td{
   border-spacing: "0px";
 }
 body{
-  background-color: lemonchiffon;
+  background-color: skyblue;
+  color: white;
 }
 
 h1{
