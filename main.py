@@ -15,14 +15,14 @@ the_jinja_env = jinja2.Environment(
 def get_body_type_options(self, body_choice):
     if body_choice == 'Ectomorph':
         url = "../Static/images/typeA.png"
-        self.response.write("Characteristics Summary: Often considered the leaner body type, it is very difficult for Ectopmorphs to gain weight and muscle, and very easy for them to lose fat. This is due to their fast metabolism, and means they must have high calorie diets with short and intense workout sessions in order to gain muscle or maintain build. Types of Training Recommended: Strength training, light cardio exercise. Meal Recommendations: Diet is the most important aspect of their routine in order to manipulate their weight. Ectopmorphs tolerate carbs very well, and thus should eat more carbs than anything else thoughout the day, especially during or after working out. Fruit and vegetables are important carbs for every meal, whilst grain carbs every other. Healthy fats and protein are good, as well as protein shakes for weight gain.")
+        myText = "Characteristics Summary: Often considered the leaner body type, it is very difficult for Ectopmorphs to gain weight and muscle, and very easy for them to lose fat. This is due to their fast metabolism, and means they must have high calorie diets with short and intense workout sessions in order to gain muscle or maintain build. Types of Training Recommended: Strength training, light cardio exercise. Meal Recommendations: Diet is the most important aspect of their routine in order to manipulate their weight. Ectopmorphs tolerate carbs very well, and thus should eat more carbs than anything else thoughout the day, especially during or after working out. Fruit and vegetables are important carbs for every meal, whilst grain carbs every other. Healthy fats and protein are good, as well as protein shakes for weight gain."
     elif body_choice == 'Mesomorph':
         url = '../Static/images/typeB.png'
-        self.response.write("Characteristics Summary: Typically an athletic body build, Mesomorphs can easily gain muscle and maintain a lower body fat. Type of Training Recommended: Strength (Weight specifically) training, Cardio exercise. Meal Recommendations: A well balanced diet is best, with slightly more carbs than proteins and fat (40/30/30) Lowfat proteins, complex carbs, and high fiber foods are best. Try avoiding high starches or surgary carbs unless it's in the morning or after exercise. Focus on light carbs and lean proteins,fruits, vegetables, and seeds. ")
+        myText = "Characteristics Summary: Typically an athletic body build, Mesomorphs can easily gain muscle and maintain a lower body fat. Type of Training Recommended: Strength (Weight specifically) training, Cardio exercise. Meal Recommendations: A well balanced diet is best, with slightly more carbs than proteins and fat (40/30/30) Lowfat proteins, complex carbs, and high fiber foods are best. Try avoiding high starches or surgary carbs unless it's in the morning or after exercise. Focus on light carbs and lean proteins,fruits, vegetables, and seeds. "
     else:
         url = '../Static/images/typeC.png'
-        self.response.write("Characteristics Summary: Often more soft than the other builds, Endomorphs pack extra body mass and find it difficult to lose it. However, they have high functioning muscles and are often successful at sports like football. They store energy well, but have low carb tolerance. This body type must maintain an exercise routine and healthy diet in order to keep fit. Types of Training Recommended: Heavier Cardio exercise, light to moderate focused Weight training. Meal Recommendations: Light carbs and heavier fats and protein work best. Avoid any carbs that are not eaten during or after working out.")
-    return url
+        myText = "Characteristics Summary: Often more soft than the other builds, Endomorphs pack extra body mass and find it difficult to lose it. However, they have high functioning muscles and are often successful at sports like football. They store energy well, but have low carb tolerance. This body type must maintain an exercise routine and healthy diet in order to keep fit. Types of Training Recommended: Heavier Cardio exercise, light to moderate focused Weight training. Meal Recommendations: Light carbs and heavier fats and protein work best. Avoid any carbs that are not eaten during or after working out."
+    return {"url": url, "text": myText}
 
 def get_regimen_options(self,fit_reg):
     if fit_reg == 'Reduce fat':
@@ -81,17 +81,19 @@ class SignInHandler(BaseHandler):
                 self.response.write(temp.render())
                 break
 
-class FirstFitnessHandler(BaseHandler):
+class FirstFitnessHandler(BaseHandler,webapp2.RequestHandler):
     def get(self):
         template1= the_jinja_env.get_template('Templates/fitnessp1.html')
         self.response.write(template1.render())
     def post(self):
         template1= the_jinja_env.get_template('Templates/fitnessp1.html')
-        template2= the_jinja_env.get_template('Templates/signin.html')
         name=self.session.get('name')
         BodyType = NewUser.query().filter(NewUser.Username==name).get().Body
+        bchoice = get_body_type_options(self, BodyType)
         BodyDict = {
         "body_type": BodyType,
+        "information_body_type": bchoice["url"],
+        "text": bchoice["text"]
         }
         self.response.write(template1.render(BodyDict))
 class RegisterHandler(webapp2.RequestHandler):
@@ -100,16 +102,16 @@ class RegisterHandler(webapp2.RequestHandler):
         self.response.write(welcome_template.render())
     def post(self):
         template1 = the_jinja_env.get_template('Templates/fitnessp1.html')
-        bodyType = self.request.get('user-BodyType')
         Password = self.request.get('password')
         Username = self.request.get('username')
         body_choice = self.request.get('user-BodyType')
-        User = NewUser(Username=Username, Password=Password, Body=bodyType)
+        User = NewUser(Username=Username, Password=Password, Body=body_choice)
         User.put()
         bchoice = get_body_type_options(self, body_choice)
         BodyDict = {
-        "body_type": bodyType,
-        "information_body_type": bchoice
+        "body_type": body_choice,
+        "information_body_type": bchoice["url"],
+        "text": bchoice["text"]
         }
         self.response.write(template1.render(BodyDict))
 
@@ -133,14 +135,17 @@ class SummaryHandler(webapp2.RequestHandler):
         self.response.write(template3.render())
     def post(self):
         template3 = the_jinja_env.get_template('Templates/summary.html')
+
         self.response.write(template3.render())
 
-class MealOneHandler(webapp2.RequestHandler):
+class MealOneHandler(BaseHandler, webapp2.RequestHandler):
     def get(self):
         template2 = the_jinja_env.get_template('Templates/mealp1.html')
         self.response.write(template2.render())
     def post(self):
         template2 = the_jinja_env.get_template('Templates/mealp1.html')
+        mealstartdate = self.request.get('From')
+        mealenddate = self.request.get('To')
         today= datetime.datetime.now()
         if today.month==1:
             month="January"
@@ -169,9 +174,8 @@ class MealOneHandler(webapp2.RequestHandler):
         Date ={
         "blank": month
         }
-        #meals=self.request.get()
 
-        self.response.write(template2.render(Date))
+        self.response.write(template2.render(Start))
 config = {}
 config['webapp2_extras.sessions'] = {
     'secret_key': 'my-super-secret-key',

@@ -11,7 +11,7 @@
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script>
   $( function() {
-  var dateFormat = "mm/dd/yy",
+  var dateFormat = "dd",
     from = $( "#from" )
       .datepicker({
         defaultDate: "+1w",
@@ -53,14 +53,14 @@
        Click this <a href="https://www.dineoncampus.com/sjsu/whats-on-the-menu" target="_blank">link</a> to see the Commons Dining hall meal schedule for the month of {{blank}}!
        </h2>
 
+  <p> {{Start}} </p>
 
-
-    <form class="options" action="/summary.html" method="post">
+    <form class="options" action="/mealp1.html" method="post">
 
     <label for="from">From</label>
-    <input type="text" id="from" name="from">
+    <input type="text" id="from" name="From">
     <label for="to">to</label>
-    <input type="text" id="to" name="to">
+    <input type="text" id="to" name="To">
     <br>
         <label for="user_meals">Select your meals</label>
         <select name="user_meals">

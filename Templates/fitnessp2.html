@@ -10,7 +10,7 @@
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script>
   $( function() {
-  var dateFormat = "mm/dd/yy",
+  var dateFormat = "dd",
     from = $( "#from" )
       .datepicker({
         defaultDate: "+1w",
@@ -51,7 +51,7 @@
       {{examp}} {{examp2}}
     </p>
 
-    <form class="workDays" action="mealp1.html" method="post">
+    <form class="workDays" action="/fitnessp2.html" method="post">
       <label for="user_days">How many days a week would you like to work out?</label>
       <select name="user_days">
         <option value="zero">0</option>
@@ -66,13 +66,14 @@
       <p>
       </p>
     </form>
-
+<form class="options" action="/mealp1.html" method="post">
     <label for="from">From</label>
-    <input type="text" id="from" name="from">
+    <input type="text" id="from" name="From">
     <label for="to">to</label>
-    <input type="text" id="to" name="to">
+    <input type="text" id="to" name="To">
+  </form>
 
-    <form class="options" action="mealp1.html" method="post">
+    <form class="options" action="/mealp1.html" method="post">
         <label for="user_exercise">Select your regime for this week</label>
         <select name="user_exercise" multiple>
           <option value="sunday">Sunday</option>
