@@ -15,14 +15,14 @@ the_jinja_env = jinja2.Environment(
 def get_body_type_options(self, body_choice):
     if body_choice == 'Ectomorph':
         url = "../Static/images/typeA.png"
-        self.response.write("Characteristics Summary: Often considered the leaner body type, it is very difficult for Ectopmorphs to gain weight and muscle, and very easy for them to lose fat. This is due to their fast metabolism, and means they must have high calorie diets with short and intense workout sessions in order to gain muscle or maintain build. Types of Training Recommended: Strength training, light cardio exercise. Meal Recommendations: Diet is the most important aspect of their routine in order to manipulate their weight. Ectopmorphs tolerate carbs very well, and thus should eat more carbs than anything else thoughout the day, especially during or after working out. Fruit and vegetables are important carbs for every meal, whilst grain carbs every other. Healthy fats and protein are good, as well as protein shakes for weight gain.")
+        myText = "Characteristics Summary: Often considered the leaner body type, it is very difficult for Ectopmorphs to gain weight and muscle, and very easy for them to lose fat. This is due to their fast metabolism, and means they must have high calorie diets with short and intense workout sessions in order to gain muscle or maintain build. Types of Training Recommended: Strength training, light cardio exercise. Meal Recommendations: Diet is the most important aspect of their routine in order to manipulate their weight. Ectopmorphs tolerate carbs very well, and thus should eat more carbs than anything else thoughout the day, especially during or after working out. Fruit and vegetables are important carbs for every meal, whilst grain carbs every other. Healthy fats and protein are good, as well as protein shakes for weight gain."
     elif body_choice == 'Mesomorph':
         url = '../Static/images/typeB.png'
-        self.response.write("Characteristics Summary: Typically an athletic body build, Mesomorphs can easily gain muscle and maintain a lower body fat. Type of Training Recommended: Strength (Weight specifically) training, Cardio exercise. Meal Recommendations: A well balanced diet is best, with slightly more carbs than proteins and fat (40/30/30) Lowfat proteins, complex carbs, and high fiber foods are best. Try avoiding high starches or surgary carbs unless it's in the morning or after exercise. Focus on light carbs and lean proteins,fruits, vegetables, and seeds. ")
+        myText = "Characteristics Summary: Typically an athletic body build, Mesomorphs can easily gain muscle and maintain a lower body fat. Type of Training Recommended: Strength (Weight specifically) training, Cardio exercise. Meal Recommendations: A well balanced diet is best, with slightly more carbs than proteins and fat (40/30/30) Lowfat proteins, complex carbs, and high fiber foods are best. Try avoiding high starches or surgary carbs unless it's in the morning or after exercise. Focus on light carbs and lean proteins,fruits, vegetables, and seeds. "
     else:
         url = '../Static/images/typeC.png'
-        self.response.write("Characteristics Summary: Often more soft than the other builds, Endomorphs pack extra body mass and find it difficult to lose it. However, they have high functioning muscles and are often successful at sports like football. They store energy well, but have low carb tolerance. This body type must maintain an exercise routine and healthy diet in order to keep fit. Types of Training Recommended: Heavier Cardio exercise, light to moderate focused Weight training. Meal Recommendations: Light carbs and heavier fats and protein work best. Avoid any carbs that are not eaten during or after working out.")
-    return url
+        myText = "Characteristics Summary: Often more soft than the other builds, Endomorphs pack extra body mass and find it difficult to lose it. However, they have high functioning muscles and are often successful at sports like football. They store energy well, but have low carb tolerance. This body type must maintain an exercise routine and healthy diet in order to keep fit. Types of Training Recommended: Heavier Cardio exercise, light to moderate focused Weight training. Meal Recommendations: Light carbs and heavier fats and protein work best. Avoid any carbs that are not eaten during or after working out."
+    return {"url": url, "text": myText}
 
 def get_regimen_options(self,fit_reg):
     if fit_reg == 'Reduce fat':
@@ -109,7 +109,8 @@ class RegisterHandler(webapp2.RequestHandler):
         bchoice = get_body_type_options(self, body_choice)
         BodyDict = {
         "body_type": bodyType,
-        "information_body_type": bchoice
+        "information_body_type": bchoice["url"],
+        "text": bchoice["text"]
         }
         self.response.write(template1.render(BodyDict))
 
@@ -170,7 +171,7 @@ class MealOneHandler(webapp2.RequestHandler):
         "blank": month
         }
         meals=self.request.get()
-        
+
         self.response.write(template2.render(Date))
 config = {}
 config['webapp2_extras.sessions'] = {
